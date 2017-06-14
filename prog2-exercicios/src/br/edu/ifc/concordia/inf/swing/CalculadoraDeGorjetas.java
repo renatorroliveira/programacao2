@@ -2,25 +2,33 @@ package br.edu.ifc.concordia.inf.swing;
 
 import java.awt.Color;
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class CalculadoraDeGorjetas extends JFrame {
-	
+
+	private JPanel rootPanel;
 	private JPanel mainPanel;
 	private JButton calculateBtn;
 	private GridLayout layout;
+	
+	private JList exampleList;
+	private DefaultListModel<String> entries;
 	
 	private JTextField field_preco;
 	private JSlider field_percentual;
@@ -35,17 +43,35 @@ public class CalculadoraDeGorjetas extends JFrame {
 	public CalculadoraDeGorjetas(String title) {
 		super(title);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(500, 250);
+		this.setSize(800, 350);
 		FlowLayout windowLayout = new FlowLayout();
 		windowLayout.setHgap(10);
 		windowLayout.setVgap(10);
 		this.setLayout(windowLayout);
 		CalculadoraDeGorjetas frame = this;
 		
+		rootPanel = new JPanel();
+		entries = new DefaultListModel<String>();
+		for (int i = 0; i< 10; i++) {
+			entries.addElement("Sangaletti");
+			entries.addElement("Batata");
+			entries.addElement("Toca");
+		}
+		exampleList = new JList<String>(entries);
+		exampleList.setPreferredSize(new Dimension(200, 500));
+		JScrollPane scroller = new JScrollPane(exampleList);
+		scroller.setPreferredSize(new Dimension(250, 250));
+		scroller.setLocation(0, 0);
+		scroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		rootPanel.add(scroller);
+		
+		
 		mainPanel = new JPanel();
 		layout = new GridLayout(5,2);
 		layout.setHgap(10);
 		layout.setVgap(10);
+		mainPanel.setSize(500, 250);
+		mainPanel.setLocation(300, 0);
 		mainPanel.setLayout(layout);
 		mainPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		
@@ -97,7 +123,8 @@ public class CalculadoraDeGorjetas extends JFrame {
 		mainPanel.add(new JLabel());
 		mainPanel.add(calculateBtn);
 		
-		this.add(mainPanel);
+		rootPanel.add(mainPanel);
+		this.add(rootPanel);
 	}
 	
 	protected void calculateTip() {
