@@ -1,7 +1,6 @@
-import br.edu.ifc.concordia.inf.swing.CalculadoraDeGorjetas;
+import br.edu.ifc.concordia.inf.agenda.Agenda;
 public class Testes {
 	public static void main(String[] args) {
-		CalculadoraDeGorjetas calc = new CalculadoraDeGorjetas("Gorjetec");
-		calc.setVisible(true);
+		Agenda agenda = new Agenda();
 	}
 }
