@@ -30,12 +30,16 @@ public class Agenda extends JFrame {
 	public Agenda() {
 		super("Agenda Eletrônica");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(600, 350);
+		this.setSize(1000, 350);
 		Agenda frame = this;
 		agenda = new LinkedList<Contato>();
-		Contato renato = new Contato("Renato", "Oliveira");
-		renato.emails.add(new Email("renatorro@bla.com", "Pessoal"));
-		agenda.add(renato);
+		Contato contato = new Contato("Renato", "Oliveira");
+		contato.emails.add(new Email("renatorro@bla.com", "Pessoal"));
+		agenda.add(contato);
+		contato = new Contato("Fulano", "da Silva");
+		agenda.add(contato);
+		contato = new Contato("Siclano", "da Silva");
+		agenda.add(contato);
 		
 		GridLayout windowLayout = new GridLayout(1, 2);
 		windowLayout.setHgap(10);
@@ -53,7 +57,7 @@ public class Agenda extends JFrame {
 		listaDeContatosNaTela.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				Contato selecionado = agenda.get(e.getFirstIndex());
+				Contato selecionado = agenda.get(listaDeContatosNaTela.getSelectedIndex());
 				detalhesNome.setText(selecionado.nome);
 				detalhesSobrenome.setText(selecionado.sobrenome);
 				DefaultListModel<String> emails = new DefaultListModel<String>();
@@ -68,18 +72,22 @@ public class Agenda extends JFrame {
 		root.add(scroller);
 		
 		containerDeDetalhes = new JPanel();
-		GridLayout gridDeDetalhes = new GridLayout(3, 2);
+		GridLayout gridDeDetalhes = new GridLayout(3, 3);
+		
 		containerDeDetalhes.setLayout(gridDeDetalhes);
 		containerDeDetalhes.add(new JLabel("Nome:"));
 		detalhesNome = new JLabel("");
 		containerDeDetalhes.add(detalhesNome);
+		containerDeDetalhes.add(new JLabel());
 		containerDeDetalhes.add(new JLabel("Sobrenome:"));
 		detalhesSobrenome = new JLabel("");
 		containerDeDetalhes.add(detalhesSobrenome);
+		containerDeDetalhes.add(new JLabel());
 		containerDeDetalhes.add(new JLabel("Emails:"));
 		listaDeEmailsNaTela = new JList<String>();
 		JScrollPane emailsScroller = new JScrollPane(listaDeEmailsNaTela);
 		containerDeDetalhes.add(emailsScroller);
+		containerDeDetalhes.add(new JLabel());
 		
 		root.add(containerDeDetalhes);
 		
